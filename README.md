@@ -1,4 +1,4 @@
-![logo](C:\Users\dicko\Desktop\ptojetvacance\logo.png "logo")
+![logo du projet](logo.png)
 
 ## 💡 **Règles Git/GitHub** *(à appliquer tout le long du projet)*
 
