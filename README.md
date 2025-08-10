@@ -186,7 +186,7 @@ CHECKLIST
 
 | Jour | Objectif principal | Détails & Actions |
 | --- | --- | --- |
-|[] 1 | Installation & Setup | Installer Python 3.13.6, WSL, VS Code, Git. Créer un environnement virtuel. |
+| 1 | Installation & Setup | Installer Python 3.13.6, WSL, VS Code, Git. Créer un environnement virtuel. |
 | 2 | Bases Python | Révisions variables, boucles, fonctions. Exercices simples. |
 | 3 | Bases Python | Manipulation fichiers, JSON, datetime, modules. |
 | 4 | Git/GitHub | Apprendre commandes Git, créer repo, commit/push. |
