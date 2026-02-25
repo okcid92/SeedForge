@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Ajouter un Torrent - SeedForge{% endblock %}
+
+{% block content %}
+<h2>Ajouter un Torrent</h2>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Nom du torrent:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="hash">Hash:</label>
+        <input type="text" id="hash" name="hash" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="size">Taille (en octets):</label>
+        <input type="number" id="size" name="size" value="0">
+    </div>
+    
+    <div class="form-group">
+        <label for="category_id">Catégorie:</label>
+        <select id="category_id" name="category_id">
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit">Ajouter</button>
+</form>
+{% endblock %}

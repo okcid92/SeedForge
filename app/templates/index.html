@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - SeedForge{% endblock %}
+
+{% block content %}
+<div class="header-section">
+    <h2>Liste des Torrents</h2>
+    <div class="filters">
+        <form method="GET" class="search-form">
+            <input type="text" name="q" placeholder="Rechercher..." value="{{ request.args.get('q', '') }}">
+            <button type="submit">🔍</button>
+        </form>
+        <div class="category-filter">
+            <a href="{{ url_for('main.index') }}" class="filter-btn">Tous</a>
+            {% for cat in categories %}
+            <a href="{{ url_for('main.index', category=cat.id) }}" class="filter-btn">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% if torrents %}
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Taille</th>
+            <th>Seeders</th>
+            <th>Leechers</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for torrent in torrents %}
+        <tr>
+            <td><a href="{{ url_for('main.torrent_detail', id=torrent.id) }}">{{ torrent.name }}</a></td>
+            <td>{{ ((torrent.size or 0) / 1024 / 1024) | round(2) }} MB</td>
+            <td>{{ torrent.seeders }}</td>
+            <td>{{ torrent.leechers }}</td>
+            <td><span class="status-{{ torrent.status }}">{{ torrent.status }}</span></td>
+            <td class="actions">
+                {% if torrent.status == 'downloading' %}
+                <a href="{{ url_for('main.pause_torrent', id=torrent.id) }}" class="btn-pause">⏸</a>
+                {% elif torrent.status == 'paused' %}
+                <a href="{{ url_for('main.resume_torrent', id=torrent.id) }}" class="btn-resume">▶</a>
+                {% endif %}
+                <a href="{{ url_for('main.delete_torrent', id=torrent.id) }}" class="btn-delete" onclick="return confirm('Supprimer ce torrent?')">🗑</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun torrent disponible. <a href="{{ url_for('main.add_torrent') }}">Ajoutez-en un!</a></p>
+{% endif %}
+{% endblock %}

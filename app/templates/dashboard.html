@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de Bord - SeedForge{% endblock %}
+
+{% block content %}
+<h2>📊 Tableau de Bord</h2>
+
+<div class="dashboard-grid">
+    <div class="stat-card">
+        <h3>Total Torrents</h3>
+        <p class="stat-number">{{ total }}</p>
+    </div>
+    
+    <div class="stat-card active">
+        <h3>Actifs</h3>
+        <p class="stat-number">{{ active }}</p>
+    </div>
+    
+    <div class="stat-card completed">
+        <h3>Terminés</h3>
+        <p class="stat-number">{{ completed }}</p>
+    </div>
+    
+    <div class="stat-card paused">
+        <h3>En Pause</h3>
+        <p class="stat-number">{{ paused }}</p>
+    </div>
+</div>
+
+<div class="dashboard-actions">
+    <a href="{{ url_for('main.index') }}" class="btn">Voir tous les torrents</a>
+    <a href="{{ url_for('main.add_torrent') }}" class="btn btn-primary">Ajouter un torrent</a>
+</div>
+{% endblock %}

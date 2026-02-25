@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ torrent.name }} - SeedForge{% endblock %}
+
+{% block content %}
+<h2>{{ torrent.name }}</h2>
+
+<div class="torrent-details">
+    <p><strong>Hash:</strong> {{ torrent.hash }}</p>
+    <p><strong>Taille:</strong> {{ ((torrent.size or 0) / 1024 / 1024) | round(2) }} MB</p>
+    <p><strong>Seeders:</strong> {{ torrent.seeders }}</p>
+    <p><strong>Leechers:</strong> {{ torrent.leechers }}</p>
+    <p><strong>Statut:</strong> {{ torrent.status }}</p>
+    <p><strong>Progression:</strong> {{ (torrent.progress * 100) | round(1) }}%</p>
+    <p><strong>Catégorie:</strong> {{ torrent.category.name if torrent.category else 'N/A' }}</p>
+    <p><strong>Ajouté le:</strong> {{ torrent.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+</div>
+
+<a href="{{ url_for('main.index') }}">Retour à la liste</a>
+{% endblock %}
