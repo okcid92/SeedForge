@@ -1,20 +1,118 @@
 {% extends "base.html" %}
 
-{% block title %}{{ torrent.name }} - SeedForge{% endblock %}
+{% block header %}Détails du Torrent{% endblock %}
 
 {% block content %}
-<h2>{{ torrent.name }}</h2>
+<div class="max-w-5xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="bg-slate-900/50 rounded-xl border border-primary/10 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-primary/10 rounded-lg text-primary">
+                    <span class="material-symbols-outlined text-3xl">download_for_offline</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">{{ torrent.name }}</h1>
+                    <p class="text-sm text-slate-400 font-mono">{{ torrent.hash }}</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 transition-colors">
+                    <span class="material-symbols-outlined">share</span>
+                </button>
+                {% if torrent.status == 'downloading' %}
+                <a href="{{ url_for('main.pause_torrent', id=torrent.id) }}" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-primary transition-colors">
+                    <span class="material-symbols-outlined">pause</span>
+                </a>
+                {% else %}
+                <a href="{{ url_for('main.resume_torrent', id=torrent.id) }}" class="p-2.5 rounded-lg bg-primary/20 hover:bg-primary/30 text-primary transition-colors">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                </a>
+                {% endif %}
+                <a href="{{ url_for('main.delete_torrent', id=torrent.id) }}" onclick="return confirm('Supprimer ce torrent?')" class="p-2.5 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-400 transition-colors">
+                    <span class="material-symbols-outlined">delete</span>
+                </a>
+            </div>
+        </div>
 
-<div class="torrent-details">
-    <p><strong>Hash:</strong> {{ torrent.hash }}</p>
-    <p><strong>Taille:</strong> {{ ((torrent.size or 0) / 1024 / 1024) | round(2) }} MB</p>
-    <p><strong>Seeders:</strong> {{ torrent.seeders }}</p>
-    <p><strong>Leechers:</strong> {{ torrent.leechers }}</p>
-    <p><strong>Statut:</strong> {{ torrent.status }}</p>
-    <p><strong>Progression:</strong> {{ (torrent.progress * 100) | round(1) }}%</p>
-    <p><strong>Catégorie:</strong> {{ torrent.category.name if torrent.category else 'N/A' }}</p>
-    <p><strong>Ajouté le:</strong> {{ torrent.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+        <!-- Progress -->
+        <div class="space-y-2">
+            <div class="flex justify-between items-end">
+                <div>
+                    <span class="text-3xl font-black text-primary">{{ (torrent.progress * 100) | round(1) }}%</span>
+                    <span class="text-slate-400 ml-2">{{ torrent.status }}</span>
+                </div>
+                {% if status %}
+                <div class="text-right">
+                    <p class="text-sm font-medium">{{ status.download_rate | round(2) }} KB/s</p>
+                    <p class="text-xs text-slate-400">Vitesse download</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-4 overflow-hidden">
+                <div class="bg-primary h-full rounded-full transition-all" style="width: {{ (torrent.progress * 100) | round(1) }}%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+            <p class="text-xs uppercase text-slate-400 mb-1">Taille</p>
+            <p class="text-xl font-bold">{{ ((torrent.size or 0) / 1024 / 1024) | round(2) }} MB</p>
+        </div>
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+            <p class="text-xs uppercase text-slate-400 mb-1">Seeders</p>
+            <p class="text-xl font-bold text-green-400">{{ torrent.seeders }}</p>
+        </div>
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+            <p class="text-xs uppercase text-slate-400 mb-1">Leechers</p>
+            <p class="text-xl font-bold text-orange-400">{{ torrent.leechers }}</p>
+        </div>
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+            <p class="text-xs uppercase text-slate-400 mb-1">Catégorie</p>
+            <p class="text-xl font-bold">{{ torrent.category.name if torrent.category else 'N/A' }}</p>
+        </div>
+    </div>
+
+    {% if status %}
+    <!-- Real-time Stats -->
+    <div class="bg-slate-900/50 rounded-xl border border-primary/10 p-6">
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">speed</span>
+            Statistiques en Temps Réel
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+                <p class="text-xs text-slate-400 mb-1">Download</p>
+                <p class="text-lg font-bold">{{ status.download_rate | round(2) }} KB/s</p>
+            </div>
+            <div>
+                <p class="text-xs text-slate-400 mb-1">Upload</p>
+                <p class="text-lg font-bold">{{ status.upload_rate | round(2) }} KB/s</p>
+            </div>
+            <div>
+                <p class="text-xs text-slate-400 mb-1">Téléchargé</p>
+                <p class="text-lg font-bold">{{ (status.total_download / 1024 / 1024) | round(2) }} MB</p>
+            </div>
+            <div>
+                <p class="text-xs text-slate-400 mb-1">Uploadé</p>
+                <p class="text-lg font-bold">{{ (status.total_upload / 1024 / 1024) | round(2) }} MB</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="flex gap-3">
+        <a href="{{ url_for('main.index') }}" class="px-6 py-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Retour
+        </a>
+    </div>
 </div>
 
-<a href="{{ url_for('main.index') }}">Retour à la liste</a>
+<script>
+setInterval(() => location.reload(), 5000);
+</script>
 {% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block header %}Statistiques{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">Total T\u00e9l\u00e9charg\u00e9</p>
+                <span class="material-symbols-outlined text-primary/60">arrow_downward</span>
+            </div>
+            <p class="text-3xl font-bold">{{ (total_downloaded / 1024 / 1024 / 1024) | round(2) }} GB</p>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">Total Upload\u00e9</p>
+                <span class="material-symbols-outlined text-primary/60">arrow_upward</span>
+            </div>
+            <p class="text-3xl font-bold">{{ (total_uploaded / 1024 / 1024 / 1024) | round(2) }} GB</p>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">Ratio Global</p>
+                <span class="material-symbols-outlined text-primary/60">balance</span>
+            </div>
+            <p class="text-3xl font-bold">{{ ratio | round(2) }}</p>
+        </div>
+    </div>
+
+    <!-- Daily Traffic Chart -->
+    <div class="bg-slate-900/50 p-8 rounded-xl border border-primary/10">
+        <h3 class="text-xl font-bold mb-6">Trafic Quotidien</h3>
+        <div class="grid grid-cols-7 gap-4 h-64 items-end">
+            {% for stat in daily_stats %}
+            <div class="flex flex-col items-center gap-2 h-full justify-end">
+                <div class="w-full flex flex-col items-center gap-1 h-full justify-end">
+                    <div class="w-8 bg-primary/40 rounded-t-sm" style="height: {{ (stat.total_uploaded / 1024 / 1024 / 10) | round }}%;"></div>
+                    <div class="w-8 bg-primary rounded-t-sm" style="height: {{ (stat.total_downloaded / 1024 / 1024 / 10) | round }}%;"></div>
+                </div>
+                <span class="text-xs text-slate-400">{{ stat.date.strftime('%a') }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Recently Completed -->
+    <div class="bg-slate-900/50 rounded-xl border border-primary/10 overflow-hidden">
+        <div class="p-6 border-b border-primary/10">
+            <h3 class="text-xl font-bold">Torrents Termin\u00e9s</h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-primary/5">
+                    <tr class="text-slate-400 text-xs uppercase">
+                        <th class="px-6 py-4 text-left">Nom</th>
+                        <th class="px-6 py-4 text-left">Termin\u00e9 le</th>
+                        <th class="px-6 py-4 text-left">Taille</th>
+                        <th class="px-6 py-4 text-left">Ratio</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-primary/10">
+                    {% for torrent in completed %}
+                    <tr class="hover:bg-primary/5 transition-colors">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">description</span>
+                                <span class="font-medium">{{ torrent.name }}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-slate-400">{{ torrent.completed_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                        <td class="px-6 py-4 text-sm">{{ (torrent.size / 1024 / 1024) | round(2) }} MB</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs font-bold">{{ torrent.ratio | round(2) }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,35 +1,82 @@
 {% extends "base.html" %}
 
-{% block title %}Ajouter un Torrent - SeedForge{% endblock %}
+{% block header %}Ajouter un Torrent{% endblock %}
 
 {% block content %}
-<h2>Ajouter un Torrent</h2>
+<div class="max-w-2xl mx-auto">
+    <form method="POST" enctype="multipart/form-data" class="bg-slate-900/50 rounded-xl border border-primary/10 overflow-hidden">
+        <!-- Drag & Drop Area -->
+        <div class="p-6">
+            <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-primary/20 bg-primary/5 px-6 py-12 hover:border-primary/40 transition-colors">
+                <div class="flex flex-col items-center gap-3">
+                    <div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-3xl">upload_file</span>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-lg font-semibold">Glissez-déposez un fichier .torrent</p>
+                        <p class="text-sm text-slate-400">ou cliquez pour parcourir</p>
+                    </div>
+                </div>
+                <input type="file" id="torrent_file" name="torrent_file" accept=".torrent" class="hidden">
+                <button type="button" onclick="document.getElementById('torrent_file').click()" class="px-6 py-2 bg-primary text-white rounded-lg font-bold hover:bg-primary/90 transition-all">
+                    Sélectionner un fichier
+                </button>
+            </div>
+        </div>
 
-<form method="POST">
-    <div class="form-group">
-        <label for="name">Nom du torrent:</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="hash">Hash:</label>
-        <input type="text" id="hash" name="hash" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="size">Taille (en octets):</label>
-        <input type="number" id="size" name="size" value="0">
-    </div>
-    
-    <div class="form-group">
-        <label for="category_id">Catégorie:</label>
-        <select id="category_id" name="category_id">
-            {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    
-    <button type="submit">Ajouter</button>
-</form>
+        <!-- Separator -->
+        <div class="relative flex items-center px-6">
+            <div class="grow border-t border-slate-800"></div>
+            <span class="mx-4 text-slate-400 text-xs font-bold uppercase">ou</span>
+            <div class="grow border-t border-slate-800"></div>
+        </div>
+
+        <!-- Magnet Link -->
+        <div class="p-6 space-y-4">
+            <div>
+                <label class="flex items-center gap-2 text-sm font-bold mb-2">
+                    <span class="material-symbols-outlined text-primary">link</span>
+                    Magnet Link
+                </label>
+                <textarea name="magnet_link" rows="3" placeholder="magnet:?xt=urn:btih:..." class="w-full bg-slate-800 border-slate-700 rounded-lg text-white resize-none"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Catégorie</label>
+                <select name="category_id" class="w-full bg-slate-800 border-slate-700 rounded-lg text-white">
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Advanced Settings -->
+            <details class="border-t border-slate-800 pt-4">
+                <summary class="flex items-center justify-between cursor-pointer text-sm font-semibold hover:text-primary transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined">settings</span>
+                        Paramètres avancés
+                    </div>
+                    <span class="material-symbols-outlined">expand_more</span>
+                </summary>
+                <div class="mt-4 space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Dossier de destination</label>
+                        <input type="text" name="download_path" value="downloads" class="w-full bg-slate-800 border-slate-700 rounded-lg text-white text-sm">
+                    </div>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" name="sequential" class="rounded border-slate-700 text-primary">
+                        <span class="text-sm">Téléchargement séquentiel</span>
+                    </label>
+                </div>
+            </details>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end gap-3 p-6 border-t border-slate-800">
+            <a href="{{ url_for('main.index') }}" class="px-6 py-2 text-slate-400 hover:text-white transition-colors">Annuler</a>
+            <button type="submit" class="px-8 py-2.5 bg-primary text-white rounded-lg font-bold hover:bg-primary/90 transition-all">Ajouter</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

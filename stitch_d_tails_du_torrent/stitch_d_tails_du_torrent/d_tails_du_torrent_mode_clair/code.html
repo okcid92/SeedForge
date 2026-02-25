@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7b00ff",
+                        "background-light": "#f7f5f8",
+                        "background-dark": "#190f23",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Torrent Details - Ubuntu 22.04.3</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-white dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header Section -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-40">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined">download</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Torrent Details</h2>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 bg-primary text-white px-6 font-bold text-sm">
+                        Pause
+                    </button>
+</div>
+</header>
+<main class="px-6 lg:px-40 py-8">
+<div class="layout-content-container flex flex-col max-w-[1024px] mx-auto gap-8">
+<!-- Hero/Header Info -->
+<div class="@container">
+<div class="bg-gradient-to-br from-primary to-primary/60 rounded-xl min-h-[180px] p-8 flex flex-col justify-end text-white shadow-lg shadow-primary/20" data-alt="Abstract violet gradient background with patterns">
+<div class="flex flex-col gap-2">
+<span class="text-xs font-bold uppercase tracking-widest opacity-80">Operating System</span>
+<h1 class="text-3xl md:text-4xl font-bold leading-tight">ubuntu-22.04.3-desktop-amd64.iso</h1>
+<div class="flex gap-4 mt-2 text-sm opacity-90">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">folder</span> 4.7 GB</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> Added 2h ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Progress Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 flex flex-col gap-4 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<p class="text-slate-500 text-sm font-medium">Downloading...</p>
+<p class="text-5xl font-black text-primary">75<span class="text-2xl opacity-60">%</span></p>
+</div>
+<div class="text-right">
+<p class="text-slate-500 text-sm">Remaining</p>
+<p class="text-xl font-bold">12m 45s</p>
+</div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%;"></div>
+</div>
+<div class="flex justify-between text-sm text-slate-500">
+<span>3.5 GB downloaded</span>
+<span>1.2 GB left</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-lg">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase">Current Speed</p>
+<p class="text-2xl font-bold">4.2 MB/s</p>
+</div>
+</div>
+<div class="h-px bg-slate-100 dark:bg-slate-800 w-full"></div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase">Seeds</p>
+<p class="text-xl font-bold flex items-center gap-1">128 <span class="text-green-500 text-sm font-normal">+2</span></p>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase">Peers</p>
+<p class="text-xl font-bold flex items-center gap-1">45 <span class="text-red-500 text-sm font-normal">-1</span></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tabs/Section Content -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Files Section -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Files (3)</h3>
+<button class="text-sm font-semibold text-primary">Select All</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="flex items-center p-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<div class="ml-4 flex-1">
+<p class="font-medium text-slate-900 dark:text-slate-100">ubuntu-22.04.3-desktop-amd64.iso</p>
+<p class="text-xs text-slate-500">4.65 GB • 100% Downloaded</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">download_done</span>
+</div>
+<div class="flex items-center p-4 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<div class="ml-4 flex-1">
+<p class="font-medium text-slate-900 dark:text-slate-100">SHA256SUMS</p>
+<p class="text-xs text-slate-500">1.2 KB • 100% Downloaded</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">download_done</span>
+</div>
+<div class="flex items-center p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<div class="ml-4 flex-1">
+<p class="font-medium text-slate-900 dark:text-slate-100">SHA256SUMS.gpg</p>
+<p class="text-xs text-slate-500">833 B • 100% Downloaded</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">download_done</span>
+</div>
+</div>
+</div>
+<!-- Trackers Section -->
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Trackers</h3>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800">
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<p class="text-sm font-medium truncate pr-2">torrent.ubuntu.com:6969</p>
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Active</span>
+</div>
+<p class="text-xs text-slate-500">Updated 45s ago • 456 seeds</p>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<p class="text-sm font-medium truncate pr-2">ipv6.torrent.ubuntu.com:6969</p>
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Active</span>
+</div>
+<p class="text-xs text-slate-500">Updated 2m ago • 122 seeds</p>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<p class="text-sm font-medium truncate pr-2">tracker.openbittorrent.com</p>
+<span class="bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Standby</span>
+</div>
+<p class="text-xs text-slate-500">Connecting...</p>
+</div>
+<button class="w-full p-4 text-sm font-bold text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> Add Tracker
+                                </button>
+</div>
+</div>
+</div>
+<!-- Details Accordion/Section -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-lg font-bold mb-4">Transfer Info</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase mb-1">Total Size</p>
+<p class="font-semibold">4.65 GB</p>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase mb-1">Downloaded</p>
+<p class="font-semibold text-primary">3.48 GB</p>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase mb-1">Uploaded</p>
+<p class="font-semibold text-green-600">542 MB</p>
+</div>
+<div>
+<p class="text-slate-500 text-xs font-medium uppercase mb-1">Ratio</p>
+<p class="font-semibold">0.155</p>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
+<p class="text-slate-500 text-xs font-medium uppercase mb-1">Magnet Link</p>
+<div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+<p class="text-xs text-slate-500 truncate flex-1">magnet:?xt=urn:btih:6c73f5a1e27163c48...78f09d81d</p>
+<button class="text-primary hover:text-primary/80">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

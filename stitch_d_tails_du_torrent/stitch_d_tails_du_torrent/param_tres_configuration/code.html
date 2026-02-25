@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Torrent Manager Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7b00ff",
+                        "background-light": "#f7f5f8",
+                        "background-dark": "#190f23",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom slider styling for speed limits */
+        input[type='range'] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+            background: rgba(123, 0, 255, 0.2);
+            height: 0.5rem;
+            border-radius: 9999px;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            margin-top: -4px;
+            background-color: #7b00ff;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="mx-auto flex w-full max-w-[960px] flex-1 flex-col py-5 px-4 md:px-10">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-primary/20 px-4 py-6">
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">cyclone</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-bold leading-tight tracking-tight">Preferences</h2>
+</div>
+<div class="flex gap-2">
+<button class="flex h-10 items-center justify-center rounded-lg bg-slate-200 dark:bg-primary/10 px-4 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-primary/20 transition-colors">
+                            Discard
+                        </button>
+<button class="flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-white gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                            Save Changes
+                        </button>
+</div>
+</header>
+<!-- Navigation Tabs -->
+<div class="pb-3 mt-4">
+<div class="flex border-b border-slate-200 dark:border-primary/10 px-4 gap-8 overflow-x-auto scrollbar-hide">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-primary text-primary pb-[13px] pt-4 shrink-0" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">General</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 shrink-0 hover:text-primary transition-colors" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">Connection</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 shrink-0 hover:text-primary transition-colors" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">Bandwidth</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 shrink-0 hover:text-primary transition-colors" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">Downloads</p>
+</a>
+</div>
+</div>
+<!-- General Section -->
+<div class="mt-8 space-y-6">
+<section>
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold px-4 mb-4">Application Startup</h3>
+<div class="space-y-1">
+<!-- Startup Toggle -->
+<div class="flex items-center gap-4 px-4 py-4 justify-between bg-white/50 dark:bg-white/5 rounded-xl">
+<div class="flex items-center gap-4">
+<div class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">power_settings_new</span>
+</div>
+<div class="flex flex-col">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Start on system boot</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Launch the app automatically when you log in</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Tray Toggle -->
+<div class="flex items-center gap-4 px-4 py-4 justify-between bg-white/50 dark:bg-white/5 rounded-xl">
+<div class="flex items-center gap-4">
+<div class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+<div class="flex flex-col">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Minimize to tray</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Keep running in the background when closed</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<hr class="border-slate-200 dark:border-primary/10 mx-4"/>
+<!-- Connection Section -->
+<section>
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold px-4 mb-4">Connection</h3>
+<div class="px-4 space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-sm font-medium text-slate-500 dark:text-slate-400">Incoming Port</label>
+<div class="flex gap-2">
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-white/5 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-primary" type="number" value="6881"/>
+<button class="px-3 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-white/10 text-xs font-semibold">Random</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-slate-500 dark:text-slate-400">UPnP / NAT-PMP</label>
+<div class="flex items-center gap-2 py-2">
+<input checked="" class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-dark" type="checkbox"/>
+<span class="text-sm text-slate-700 dark:text-slate-300">Enable automatic port mapping</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-slate-500 dark:text-slate-400">Proxy Type</label>
+<select class="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-white/5 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-primary">
+<option>None (Direct Connection)</option>
+<option>SOCKS4</option>
+<option>SOCKS5</option>
+<option>HTTP</option>
+</select>
+</div>
+</div>
+</section>
+<hr class="border-slate-200 dark:border-primary/10 mx-4"/>
+<!-- Bandwidth Section -->
+<section>
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold px-4 mb-4">Bandwidth Limits</h3>
+<div class="px-4 space-y-8">
+<!-- Download Limit Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">download</span>
+<span class="text-sm font-medium">Global Download Rate</span>
+</div>
+<span class="text-sm font-bold text-primary">2.5 MB/s</span>
+</div>
+<input class="w-full" max="100" min="0" type="range" value="25"/>
+<div class="flex justify-between text-xs text-slate-500">
+<span>0 KB/s</span>
+<span>Unlimited</span>
+</div>
+</div>
+<!-- Upload Limit Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">upload</span>
+<span class="text-sm font-medium">Global Upload Rate</span>
+</div>
+<span class="text-sm font-bold text-primary">512 KB/s</span>
+</div>
+<input class="w-full" max="100" min="0" type="range" value="10"/>
+<div class="flex justify-between text-xs text-slate-500">
+<span>0 KB/s</span>
+<span>Unlimited</span>
+</div>
+</div>
+</div>
+</section>
+<hr class="border-slate-200 dark:border-primary/10 mx-4"/>
+<!-- Downloads Section -->
+<section class="pb-10">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold px-4 mb-4">Storage &amp; Downloads</h3>
+<div class="px-4 space-y-4">
+<div class="space-y-2">
+<label class="text-sm font-medium text-slate-500 dark:text-slate-400">Default Download Path</label>
+<div class="flex gap-3">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+<span class="material-symbols-outlined">folder_open</span>
+</span>
+<input class="w-full pl-10 rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-white/5 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-primary" type="text" value="C:\Users\User\Downloads\Torrents"/>
+</div>
+<button class="px-4 rounded-lg bg-primary text-white font-semibold text-sm hover:opacity-90 transition-opacity">Browse</button>
+</div>
+</div>
+<div class="flex items-center gap-2 py-2">
+<input class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-dark" id="preallocate" type="checkbox"/>
+<label class="text-sm text-slate-700 dark:text-slate-300" for="preallocate">Pre-allocate all files (avoids fragmentation)</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="h-5 w-5 rounded border-slate-300 dark:border-slate-700 bg-transparent text-primary focus:ring-primary focus:ring-offset-background-dark" id="append" type="checkbox"/>
+<label class="text-sm text-slate-700 dark:text-slate-300" for="append">Append .!ut to incomplete files</label>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</body></html>

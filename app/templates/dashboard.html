@@ -1,34 +1,94 @@
 {% extends "base.html" %}
 
-{% block title %}Tableau de Bord - SeedForge{% endblock %}
+{% block header %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>📊 Tableau de Bord</h2>
+<div class="space-y-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">Total</p>
+                <span class="material-symbols-outlined text-primary/60">folder</span>
+            </div>
+            <p class="text-3xl font-bold">{{ total }}</p>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10 border-l-4 border-l-primary">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">Actifs</p>
+                <span class="material-symbols-outlined text-primary/60">download</span>
+            </div>
+            <p class="text-3xl font-bold text-primary">{{ active }}</p>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10 border-l-4 border-l-green-500">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">Terminés</p>
+                <span class="material-symbols-outlined text-green-500/60">check_circle</span>
+            </div>
+            <p class="text-3xl font-bold text-green-400">{{ completed }}</p>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-primary/10 border-l-4 border-l-orange-500">
+            <div class="flex items-center justify-between mb-2">
+                <p class="text-slate-400 text-sm">En Pause</p>
+                <span class="material-symbols-outlined text-orange-500/60">pause</span>
+            </div>
+            <p class="text-3xl font-bold text-orange-400">{{ paused }}</p>
+        </div>
+    </div>
 
-<div class="dashboard-grid">
-    <div class="stat-card">
-        <h3>Total Torrents</h3>
-        <p class="stat-number">{{ total }}</p>
+    <!-- Quick Actions -->
+    <div class="bg-slate-900/50 rounded-xl border border-primary/10 p-6">
+        <h3 class="text-lg font-bold mb-4">Actions Rapides</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a href="{{ url_for('main.add_torrent') }}" class="flex items-center gap-4 p-4 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors group">
+                <div class="p-3 bg-primary/20 rounded-lg group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-primary text-2xl">add</span>
+                </div>
+                <div>
+                    <p class="font-bold">Ajouter un Torrent</p>
+                    <p class="text-sm text-slate-400">Fichier ou magnet link</p>
+                </div>
+            </a>
+            <a href="{{ url_for('main.search_torrents') }}" class="flex items-center gap-4 p-4 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors group">
+                <div class="p-3 bg-slate-700 rounded-lg group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-slate-400 text-2xl">search</span>
+                </div>
+                <div>
+                    <p class="font-bold">Rechercher</p>
+                    <p class="text-sm text-slate-400">Trouver des torrents</p>
+                </div>
+            </a>
+            <a href="{{ url_for('main.statistics') }}" class="flex items-center gap-4 p-4 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors group">
+                <div class="p-3 bg-slate-700 rounded-lg group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-slate-400 text-2xl">bar_chart</span>
+                </div>
+                <div>
+                    <p class="font-bold">Statistiques</p>
+                    <p class="text-sm text-slate-400">Voir l'historique</p>
+                </div>
+            </a>
+        </div>
     </div>
-    
-    <div class="stat-card active">
-        <h3>Actifs</h3>
-        <p class="stat-number">{{ active }}</p>
-    </div>
-    
-    <div class="stat-card completed">
-        <h3>Terminés</h3>
-        <p class="stat-number">{{ completed }}</p>
-    </div>
-    
-    <div class="stat-card paused">
-        <h3>En Pause</h3>
-        <p class="stat-number">{{ paused }}</p>
-    </div>
-</div>
 
-<div class="dashboard-actions">
-    <a href="{{ url_for('main.index') }}" class="btn">Voir tous les torrents</a>
-    <a href="{{ url_for('main.add_torrent') }}" class="btn btn-primary">Ajouter un torrent</a>
+    <!-- Recent Activity -->
+    <div class="bg-slate-900/50 rounded-xl border border-primary/10 p-6">
+        <h3 class="text-lg font-bold mb-4">Activité Récente</h3>
+        <div class="space-y-3">
+            <div class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg">
+                <span class="material-symbols-outlined text-green-400">check_circle</span>
+                <div class="flex-1">
+                    <p class="text-sm font-medium">{{ completed }} torrents terminés</p>
+                    <p class="text-xs text-slate-400">Aujourd'hui</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg">
+                <span class="material-symbols-outlined text-primary">download</span>
+                <div class="flex-1">
+                    <p class="text-sm font-medium">{{ active }} téléchargements actifs</p>
+                    <p class="text-xs text-slate-400">En cours</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

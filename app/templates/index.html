@@ -1,57 +1,131 @@
 {% extends "base.html" %}
 
-{% block title %}Accueil - SeedForge{% endblock %}
-
-{% block content %}
-<div class="header-section">
-    <h2>Liste des Torrents</h2>
-    <div class="filters">
-        <form method="GET" class="search-form">
-            <input type="text" name="q" placeholder="Rechercher..." value="{{ request.args.get('q', '') }}">
-            <button type="submit">🔍</button>
-        </form>
-        <div class="category-filter">
-            <a href="{{ url_for('main.index') }}" class="filter-btn">Tous</a>
-            {% for cat in categories %}
-            <a href="{{ url_for('main.index', category=cat.id) }}" class="filter-btn">{{ cat.name }}</a>
-            {% endfor %}
+{% block header %}
+<div class="flex items-center justify-between w-full">
+    <div>
+        <h2 class="text-xl font-bold">Transferts Actifs</h2>
+        <p class="text-sm text-slate-400">{{ torrents|length }} torrents</p>
+    </div>
+    <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">download</span>
+            <div>
+                <p class="text-xs text-slate-400">Download</p>
+                <p class="text-sm font-bold">4.2 MB/s</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 border-l border-slate-800 pl-6">
+            <span class="material-symbols-outlined text-slate-400">upload</span>
+            <div>
+                <p class="text-xs text-slate-400">Upload</p>
+                <p class="text-sm font-bold">1.1 MB/s</p>
+            </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
-{% if torrents %}
-<table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Taille</th>
-            <th>Seeders</th>
-            <th>Leechers</th>
-            <th>Statut</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for torrent in torrents %}
-        <tr>
-            <td><a href="{{ url_for('main.torrent_detail', id=torrent.id) }}">{{ torrent.name }}</a></td>
-            <td>{{ ((torrent.size or 0) / 1024 / 1024) | round(2) }} MB</td>
-            <td>{{ torrent.seeders }}</td>
-            <td>{{ torrent.leechers }}</td>
-            <td><span class="status-{{ torrent.status }}">{{ torrent.status }}</span></td>
-            <td class="actions">
-                {% if torrent.status == 'downloading' %}
-                <a href="{{ url_for('main.pause_torrent', id=torrent.id) }}" class="btn-pause">⏸</a>
-                {% elif torrent.status == 'paused' %}
-                <a href="{{ url_for('main.resume_torrent', id=torrent.id) }}" class="btn-resume">▶</a>
-                {% endif %}
-                <a href="{{ url_for('main.delete_torrent', id=torrent.id) }}" class="btn-delete" onclick="return confirm('Supprimer ce torrent?')">🗑</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>Aucun torrent disponible. <a href="{{ url_for('main.add_torrent') }}">Ajoutez-en un!</a></p>
-{% endif %}
+{% block content %}
+<div class="space-y-4">
+    <!-- Filters -->
+    <div class="flex items-center justify-between">
+        <div class="flex gap-2">
+            <a href="{{ url_for('main.index') }}" class="px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-medium">Tous</a>
+            <a href="{{ url_for('main.index', status='downloading') }}" class="px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-sm font-medium transition-colors">Téléchargement</a>
+            <a href="{{ url_for('main.index', status='seeding') }}" class="px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-sm font-medium transition-colors">Seeding</a>
+            <a href="{{ url_for('main.index', status='completed') }}" class="px-4 py-2 rounded-lg text-slate-400 hover:bg-slate-800 text-sm font-medium transition-colors">Terminés</a>
+        </div>
+        <form method="GET" class="flex gap-2">
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                <input type="text" name="q" placeholder="Rechercher..." value="{{ request.args.get('q', '') }}" class="pl-10 pr-4 py-2 bg-slate-800 border-slate-700 rounded-lg text-sm w-64">
+            </div>
+            <select name="category" class="bg-slate-800 border-slate-700 rounded-lg text-sm">
+                <option value="">Toutes catégories</option>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if request.args.get('category') == cat.id|string %}selected{% endif %}>{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="px-4 py-2 bg-primary rounded-lg text-white text-sm font-medium hover:bg-primary/90">Filtrer</button>
+        </form>
+    </div>
+
+    {% if torrents %}
+    <!-- Torrent List -->
+    {% for torrent in torrents %}
+    <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 flex items-center gap-6 hover:border-primary/40 transition-all group">
+        <!-- Icon -->
+        <div class="size-12 rounded-lg {% if torrent.status == 'downloading' %}bg-blue-500/10 text-blue-500{% elif torrent.status == 'completed' %}bg-green-500/10 text-green-500{% else %}bg-slate-500/10 text-slate-400{% endif %} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined">{% if torrent.category_id == 1 %}movie{% elif torrent.category_id == 3 %}music_note{% elif torrent.category_id == 5 %}sports_esports{% else %}description{% endif %}</span>
+        </div>
+
+        <!-- Info -->
+        <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+                <a href="{{ url_for('main.torrent_detail', id=torrent.id) }}" class="font-semibold truncate hover:text-primary transition-colors">{{ torrent.name }}</a>
+                <span class="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-bold uppercase">{{ torrent.category.name if torrent.category else 'N/A' }}</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs text-slate-400">
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-xs">download</span>
+                    2.8 MB/s
+                </span>
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-xs">upload</span>
+                    142 KB/s
+                </span>
+                <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-xs">group</span>
+                    {{ torrent.seeders }} seeders
+                </span>
+                <span>{{ ((torrent.size or 0) / 1024 / 1024) | round(2) }} MB</span>
+            </div>
+            <!-- Progress Bar -->
+            <div class="mt-3 flex items-center gap-3">
+                <div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full {% if torrent.status == 'completed' %}bg-green-500{% else %}bg-primary{% endif %} rounded-full" style="width: {{ (torrent.progress * 100) | round(1) }}%;"></div>
+                </div>
+                <span class="text-xs font-bold text-slate-300 w-12">{{ (torrent.progress * 100) | round(1) }}%</span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+            {% if torrent.status == 'downloading' %}
+            <a href="{{ url_for('main.pause_torrent', id=torrent.id) }}" class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 transition-colors" title="Pause">
+                <span class="material-symbols-outlined">pause</span>
+            </a>
+            {% elif torrent.status == 'paused' %}
+            <a href="{{ url_for('main.resume_torrent', id=torrent.id) }}" class="p-2 hover:bg-slate-700 rounded-lg text-primary transition-colors" title="Reprendre">
+                <span class="material-symbols-outlined">play_arrow</span>
+            </a>
+            {% endif %}
+            <a href="{{ url_for('main.torrent_detail', id=torrent.id) }}" class="p-2 hover:bg-slate-700 rounded-lg text-slate-400 transition-colors" title="Détails">
+                <span class="material-symbols-outlined">info</span>
+            </a>
+            <a href="{{ url_for('main.delete_torrent', id=torrent.id) }}" onclick="return confirm('Supprimer ce torrent?')" class="p-2 hover:bg-red-900/20 rounded-lg text-red-400 transition-colors" title="Supprimer">
+                <span class="material-symbols-outlined">delete</span>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <!-- Empty State -->
+    <div class="flex flex-col items-center justify-center py-20 text-center">
+        <div class="size-20 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+            <span class="material-symbols-outlined text-4xl">cloud_download</span>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Aucun torrent</h3>
+        <p class="text-slate-400 mb-6">Commencez par ajouter un torrent ou recherchez-en un</p>
+        <div class="flex gap-3">
+            <a href="{{ url_for('main.add_torrent') }}" class="px-6 py-2 bg-primary rounded-lg text-white font-medium hover:bg-primary/90 transition-colors">Ajouter un torrent</a>
+            <a href="{{ url_for('main.search_torrents') }}" class="px-6 py-2 bg-slate-800 rounded-lg text-white font-medium hover:bg-slate-700 transition-colors">Rechercher</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+setInterval(() => location.reload(), 10000);
+</script>
 {% endblock %}

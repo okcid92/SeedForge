@@ -1,28 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Inscription - SeedForge{% endblock %}
+{% block header %}Inscription{% endblock %}
 
 {% block content %}
-<h2>Inscription</h2>
+<div class="max-w-md mx-auto">
+    <div class="bg-slate-900/50 rounded-xl border border-primary/10 p-8">
+        <div class="text-center mb-8">
+            <div class="size-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-primary text-3xl">person_add</span>
+            </div>
+            <h2 class="text-2xl font-bold">Inscription</h2>
+            <p class="text-slate-400 text-sm mt-2">Créez votre compte SeedForge</p>
+        </div>
 
-<form method="POST">
-    <div class="form-group">
-        <label for="username">Nom d'utilisateur:</label>
-        <input type="text" id="username" name="username" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    
-    <button type="submit">S'inscrire</button>
-</form>
+        <form method="POST" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Nom d'utilisateur</label>
+                <input type="text" name="username" required class="w-full bg-slate-800 border-slate-700 rounded-lg text-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Email</label>
+                <input type="email" name="email" required class="w-full bg-slate-800 border-slate-700 rounded-lg text-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">Mot de passe</label>
+                <input type="password" name="password" required class="w-full bg-slate-800 border-slate-700 rounded-lg text-white px-4 py-3 focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            
+            <button type="submit" class="w-full py-3 bg-primary rounded-lg text-white font-bold hover:bg-primary/90 transition-all">S'inscrire</button>
+        </form>
 
-<p>Déjà un compte? <a href="{{ url_for('main.login') }}">Connectez-vous</a></p>
+        <p class="text-center text-sm text-slate-400 mt-6">
+            Déjà un compte? <a href="{{ url_for('main.login') }}" class="text-primary hover:underline">Connectez-vous</a>
+        </p>
+    </div>
+</div>
 {% endblock %}

@@ -1,40 +1,111 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html class="dark" lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SeedForge{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7b00ff",
+                        "background-dark": "#190f23",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400; }
+    </style>
 </head>
-<body>
-    <nav>
-        <div class="container">
-            <h1>🌱 SeedForge</h1>
-            <ul>
-                <li><a href="{{ url_for('main.index') }}">Accueil</a></li>
-                <li><a href="{{ url_for('main.add_torrent') }}">Ajouter</a></li>
+<body class="bg-background-dark text-slate-100 font-display">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 border-r border-primary/20 bg-background-dark flex flex-col">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-2xl">water_drop</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg">🌱 SeedForge</h1>
+                    <p class="text-xs text-slate-400">Torrent Manager</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.endpoint == 'main.index' %}bg-primary/10 text-primary{% else %}text-slate-400 hover:bg-primary/5{% endif %} transition-colors" href="{{ url_for('main.index') }}">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Tous les Torrents</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.endpoint == 'main.search_torrents' %}bg-primary/10 text-primary{% else %}text-slate-400 hover:bg-primary/5{% endif %} transition-colors" href="{{ url_for('main.search_torrents') }}">
+                    <span class="material-symbols-outlined">search</span>
+                    <span>Rechercher</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.endpoint == 'main.add_torrent' %}bg-primary/10 text-primary{% else %}text-slate-400 hover:bg-primary/5{% endif %} transition-colors" href="{{ url_for('main.add_torrent') }}">
+                    <span class="material-symbols-outlined">add</span>
+                    <span>Ajouter</span>
+                </a>
                 {% if session.get('user_id') %}
-                    <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
-                    <li><span class="username">{{ session.get('username') }}</span></li>
-                    <li><a href="{{ url_for('main.logout') }}">Déconnexion</a></li>
-                {% else %}
-                    <li><a href="{{ url_for('main.register') }}">Inscription</a></li>
-                    <li><a href="{{ url_for('main.login') }}">Connexion</a></li>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.endpoint == 'main.dashboard' %}bg-primary/10 text-primary{% else %}text-slate-400 hover:bg-primary/5{% endif %} transition-colors" href="{{ url_for('main.dashboard') }}">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.endpoint == 'main.statistics' %}bg-primary/10 text-primary{% else %}text-slate-400 hover:bg-primary/5{% endif %} transition-colors" href="{{ url_for('main.statistics') }}">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span>Statistiques</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg {% if request.endpoint == 'main.settings' %}bg-primary/10 text-primary{% else %}text-slate-400 hover:bg-primary/5{% endif %} transition-colors" href="{{ url_for('main.settings') }}">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Paramètres</span>
+                </a>
                 {% endif %}
-            </ul>
-        </div>
-    </nav>
-    
-    <main class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        {% block content %}{% endblock %}
-    </main>
+            </nav>
+            <div class="p-4 border-t border-primary/10">
+                {% if session.get('user_id') %}
+                <div class="flex items-center gap-3 px-3 py-2">
+                    <div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">{{ session.get('username')[0].upper() }}</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate">{{ session.get('username') }}</p>
+                        <a href="{{ url_for('main.logout') }}" class="text-xs text-slate-400 hover:text-primary">Déconnexion</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{{ url_for('main.login') }}" class="block text-center py-2 bg-primary rounded-lg text-white font-medium hover:bg-primary/90">Connexion</a>
+                {% endif %}
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <!-- Header -->
+            <header class="h-16 border-b border-primary/10 bg-background-dark/50 backdrop-blur-md flex items-center justify-between px-8 shrink-0">
+                <h2 class="text-xl font-bold">{% block header %}SeedForge{% endblock %}</h2>
+            </header>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-8">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="mb-4 p-4 rounded-lg {% if category == 'success' %}bg-green-500/10 border border-green-500/20 text-green-400{% else %}bg-red-500/10 border border-red-500/20 text-red-400{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
 </body>
 </html>

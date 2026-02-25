@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7b00ff",
+                        "background-light": "#f7f5f8",
+                        "background-dark": "#190f23",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-primary/20 bg-white dark:bg-background-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">water_drop</span>
+</div>
+<div>
+<h1 class="font-bold text-lg leading-tight">TorrentFlow</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">v2.4.0 Professional</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>All Torrents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">download</span>
+<span>Downloading</span>
+<span class="ml-auto text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">upload</span>
+<span>Seeding</span>
+<span class="ml-auto text-xs bg-slate-200 dark:bg-slate-800 text-slate-500 px-2 py-0.5 rounded-full">12</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span>Completed</span>
+</a>
+<div class="pt-6 pb-2">
+<p class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Categories</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-blue-400">movie</span>
+<span>Movies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-green-400">description</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-orange-400">sports_esports</span>
+<span>Games</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-primary/10">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-800" data-alt="User profile avatar placeholder"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium truncate">Admin User</p>
+<p class="text-xs text-slate-500 truncate">Settings &amp; Profile</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-sm">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- Header Bar -->
+<header class="h-16 border-b border-slate-200 dark:border-primary/10 bg-white dark:bg-background-dark/50 backdrop-blur-md flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search torrents..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">download</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 leading-none">Global Down</p>
+<p class="text-sm font-bold text-slate-700 dark:text-slate-200">4.2 MB/s</p>
+</div>
+</div>
+<div class="flex items-center gap-2 border-l border-slate-200 dark:border-slate-800 pl-6">
+<span class="material-symbols-outlined text-slate-400 text-xl">upload</span>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 leading-none">Global Up</p>
+<p class="text-sm font-bold text-slate-700 dark:text-slate-200">1.1 MB/s</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Add Torrent
+                    </button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold">Active Transfers</h2>
+<div class="flex items-center gap-2">
+<button class="text-xs font-medium px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Recent</button>
+<button class="text-xs font-medium px-3 py-1 rounded-full text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors">Alphabetical</button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Torrent Item 1 (Downloading) -->
+<div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex items-center gap-6 hover:border-primary/40 transition-all group">
+<div class="size-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:scale-105 transition-transform shrink-0">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h3 class="font-semibold text-slate-800 dark:text-slate-100 truncate">Ubuntu-22.04.3-desktop-amd64.iso</h3>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-500 font-bold uppercase tracking-tight">ISO</span>
+</div>
+<div class="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">download</span> 2.8 MB/s</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">upload</span> 142 KB/s</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">schedule</span> ETA: 14m 20s</span>
+</div>
+<div class="mt-3 flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 74%;"></div>
+</div>
+<span class="text-xs font-bold text-slate-600 dark:text-slate-300 w-8">74%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 transition-colors" title="Pause">
+<span class="material-symbols-outlined">pause</span>
+</button>
+<button class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-red-500 transition-colors" title="Remove">
+<span class="material-symbols-outlined">delete</span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 transition-colors" title="More">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Torrent Item 2 (Downloading) -->
+<div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex items-center gap-6 hover:border-primary/40 transition-all group">
+<div class="size-12 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500 group-hover:scale-105 transition-transform shrink-0">
+<span class="material-symbols-outlined">sports_esports</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h3 class="font-semibold text-slate-800 dark:text-slate-100 truncate">Cyberpunk_2077_Update_2.1_GOG.rar</h3>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-500 font-bold uppercase tracking-tight">GAME</span>
+</div>
+<div class="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">download</span> 1.2 MB/s</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">upload</span> 45 KB/s</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">schedule</span> ETA: 4h 12m</span>
+</div>
+<div class="mt-3 flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 32%;"></div>
+</div>
+<span class="text-xs font-bold text-slate-600 dark:text-slate-300 w-8">32%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 transition-colors" title="Pause">
+<span class="material-symbols-outlined">pause</span>
+</button>
+<button class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-red-500 transition-colors" title="Remove">
+<span class="material-symbols-outlined">delete</span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 transition-colors" title="More">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Torrent Item 3 (Paused) -->
+<div class="bg-slate-50/50 dark:bg-slate-800/20 border border-slate-200 dark:border-slate-800/50 rounded-xl p-4 flex items-center gap-6 transition-all group opacity-80">
+<div class="size-12 rounded-lg bg-slate-400/10 flex items-center justify-center text-slate-400 shrink-0">
+<span class="material-symbols-outlined">movie</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h3 class="font-semibold text-slate-600 dark:text-slate-400 truncate">Inception.2010.1080p.BluRay.x264.mkv</h3>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-500 font-bold uppercase tracking-tight">MOVIE</span>
+</div>
+<div class="flex items-center gap-4 text-xs text-slate-500">
+<span class="flex items-center gap-1 italic">Paused</span>
+<span class="flex items-center gap-1">8.4 GB</span>
+</div>
+<div class="mt-3 flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-slate-200 dark:bg-slate-800/50 rounded-full overflow-hidden">
+<div class="h-full bg-slate-400 rounded-full" style="width: 100%;"></div>
+</div>
+<span class="text-xs font-bold text-slate-500 w-8">100%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="p-2 bg-primary/10 hover:bg-primary/20 rounded-lg text-primary transition-colors" title="Resume">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<button class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-red-500 transition-colors" title="Remove">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Torrent Item 4 (Seeding) -->
+<div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex items-center gap-6 hover:border-green-500/40 transition-all group">
+<div class="size-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 group-hover:scale-105 transition-transform shrink-0">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h3 class="font-semibold text-slate-800 dark:text-slate-100 truncate">Adobe_Creative_Cloud_Assets_2023.zip</h3>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-green-500/10 text-green-500 font-bold uppercase tracking-tight">SEEDING</span>
+</div>
+<div class="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">upload</span> 850 KB/s</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">group</span> 12 Peers</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">trending_up</span> Ratio: 1.42</span>
+</div>
+<div class="mt-3 flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-green-500/20 rounded-full overflow-hidden">
+<div class="h-full bg-green-500 rounded-full" style="width: 100%;"></div>
+</div>
+<span class="text-xs font-bold text-green-500 w-8">100%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 transition-colors" title="Stop">
+<span class="material-symbols-outlined">stop</span>
+</button>
+<button class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-red-500 transition-colors" title="Remove">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

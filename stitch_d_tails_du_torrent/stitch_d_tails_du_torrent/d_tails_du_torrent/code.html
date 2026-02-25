@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7b00ff",
+                        "background-light": "#f7f5f8",
+                        "background-dark": "#190f23",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Torrent Manager - Details</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-5xl mx-auto px-4 py-8">
+<!-- Header / Top Navigation -->
+<header class="flex items-center justify-between mb-8 border-b border-primary/20 pb-6">
+<div class="flex items-center gap-4">
+<div class="p-2 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">download_for_offline</span>
+</div>
+<div>
+<h1 class="text-2xl font-bold tracking-tight">Ubuntu 22.04.3 LTS Desktop</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-mono">HASH: BD67-9A2C-8D4E-1F2A-F02A</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center p-2.5 rounded-lg bg-slate-200 dark:bg-primary/20 hover:bg-primary/30 transition-colors text-slate-700 dark:text-primary">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="flex items-center justify-center p-2.5 rounded-lg bg-slate-200 dark:bg-primary/20 hover:bg-primary/30 transition-colors text-slate-700 dark:text-primary">
+<span class="material-symbols-outlined">pause</span>
+</button>
+<button class="flex items-center justify-center p-2.5 rounded-lg bg-red-100 dark:bg-red-500/20 hover:bg-red-500/30 transition-colors text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</header>
+<!-- Progress Overview -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="md:col-span-2 bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/10 shadow-sm flex flex-col justify-center">
+<div class="flex justify-between items-end mb-4">
+<div>
+<span class="text-3xl font-black text-primary">65%</span>
+<span class="text-slate-500 dark:text-slate-400 ml-2">Downloading...</span>
+</div>
+<div class="text-right">
+<p class="text-sm font-medium">2.4 MB/s</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">12m remaining</p>
+</div>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-4 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/10 shadow-sm flex items-center gap-4">
+<div class="flex-1">
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Total Size</p>
+<p class="text-2xl font-bold">4.7 GB</p>
+</div>
+<div class="h-12 w-px bg-primary/20"></div>
+<div class="flex-1">
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-1">Created</p>
+<p class="text-lg font-bold">Oct 24, 23</p>
+</div>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Seeders</p>
+<p class="text-xl font-bold text-primary">142</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Leechers</p>
+<p class="text-xl font-bold">12</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Peers</p>
+<p class="text-xl font-bold">89</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-primary/10 text-center">
+<p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Ratio</p>
+<p class="text-xl font-bold">1.24</p>
+</div>
+</div>
+<!-- Main Content Area: Files & Trackers -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- File Browser -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+                        Files
+                    </h3>
+<div class="flex gap-2">
+<button class="text-xs font-semibold px-3 py-1 rounded bg-primary/10 text-primary border border-primary/20">Select All</button>
+<button class="text-xs font-semibold px-3 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700">Deselect All</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900/50 rounded-xl border border-primary/10 overflow-hidden">
+<table class="w-full text-left text-sm border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-primary/10">
+<th class="p-4 w-10"></th>
+<th class="p-4 font-semibold text-slate-600 dark:text-slate-300">Name</th>
+<th class="p-4 font-semibold text-slate-600 dark:text-slate-300">Size</th>
+<th class="p-4 font-semibold text-slate-600 dark:text-slate-300">Progress</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 text-center">
+<input checked="" class="rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+</td>
+<td class="p-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">description</span>
+                                    ubuntu-22.04.3-desktop-amd64.iso
+                                </td>
+<td class="p-4 text-slate-500">4.6 GB</td>
+<td class="p-4">
+<div class="w-24 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full" style="width: 65%;"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 text-center">
+<input checked="" class="rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+</td>
+<td class="p-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">description</span>
+                                    MD5SUMS
+                                </td>
+<td class="p-4 text-slate-500">1.2 KB</td>
+<td class="p-4">
+<div class="w-24 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-green-500 h-full" style="width: 100%;"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 text-center">
+<input checked="" class="rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+</td>
+<td class="p-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">description</span>
+                                    SHA256SUMS
+                                </td>
+<td class="p-4 text-slate-500">2.4 KB</td>
+<td class="p-4">
+<div class="w-24 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-green-500 h-full" style="width: 100%;"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="p-4 text-center">
+<input class="rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+</td>
+<td class="p-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">info</span>
+                                    README.txt
+                                </td>
+<td class="p-4 text-slate-500">542 B</td>
+<td class="p-4">
+<div class="w-24 bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full" style="width: 0%;"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Trackers Sidebar -->
+<div class="space-y-4">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">router</span>
+                    Trackers
+                </h3>
+<div class="bg-white dark:bg-slate-900/50 rounded-xl border border-primary/10 p-4 space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-primary/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-mono truncate mr-2">udp://tracker.opentrackr.org:1337</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 font-bold">ACTIVE</span>
+</div>
+<p class="text-[10px] text-slate-500">Last Announce: 2m 14s ago</p>
+</div>
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-primary/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-mono truncate mr-2">https://torrent.ubuntu.com/announce</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 font-bold">ACTIVE</span>
+</div>
+<p class="text-[10px] text-slate-500">Last Announce: 45s ago</p>
+</div>
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-primary/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-xs font-mono truncate mr-2">udp://exodus.desync.com:6969</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400 font-bold">QUEUED</span>
+</div>
+<p class="text-[10px] text-slate-500">Next Announce in 14m</p>
+</div>
+<button class="w-full py-2 flex items-center justify-center gap-2 text-xs font-bold text-primary bg-primary/10 rounded-lg border border-primary/20 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Add Tracker
+                    </button>
+</div>
+<!-- DHT Status -->
+<div class="bg-primary/5 rounded-xl border border-primary/20 p-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">hub</span>
+<span class="text-sm font-semibold">DHT Network</span>
+</div>
+<span class="text-xs font-bold text-primary">Connected</span>
+</div>
+<div class="mt-2 text-xs text-slate-500">
+                        832 nodes available
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

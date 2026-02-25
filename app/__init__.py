@@ -13,5 +13,9 @@ def create_app():
         from app.routes import main
         app.register_blueprint(main.bp)
         db.create_all()
+        
+        # Charger les torrents existants
+        from app.torrent_manager import torrent_manager
+        torrent_manager.load_torrents_from_db()
     
     return app
