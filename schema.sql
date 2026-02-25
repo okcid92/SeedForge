@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS seedforge;
+
 USE seedforge;
 
 CREATE TABLE IF NOT EXISTS users (
